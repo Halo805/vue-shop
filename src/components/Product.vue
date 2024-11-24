@@ -20,9 +20,13 @@
 </template>
 
 <script>
+import Currency from "@/components/Currency.vue";
 export default {
   props: ["item"],
   emits: ["addToCart"],
+  components: {
+    Currency,
+  },
 };
 </script>
 
