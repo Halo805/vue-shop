@@ -12,7 +12,7 @@
             <currency :amount="cartTotal"></currency>
           </span>
           <button
-            @click="displayCart = !displayCart"
+            @click="toggleCartMenu"
             class="btn btn-sm btn-success ml-3"
             id="cartDropdown"
             aria-haspopup="true"
@@ -21,26 +21,7 @@
             <fa icon="shopping-cart" />{{ cart.length }}
           </button>
         </div>
-        <div class="dropdown-clip">
-          <transition name="dropdown">
-            <div
-              v-if="displayCart"
-              class="list-group"
-              aria-labelledby="cartDropdown"
-            >
-              <div
-                v-for="(item, index) in cart"
-                :key="index"
-                class="list-group-item d-flex justify-content-between"
-              >
-                <div>{{ item.name }}</div>
-                <div class="ml-3 font-weight-bold">
-                  <currency :amount="item.price"></currency>
-                </div>
-              </div>
-            </div>
-          </transition>
-        </div>
+        <cart-dropdown :cart="cart" :displayCart="displayCart" />
       </div>
     </div>
   </nav>
@@ -48,6 +29,7 @@
 
 <script>
 import Currency from "@/components/Currency";
+import CartDropdown from "@/components/CartDropdown.vue";
 
 export default {
   name: "Navbar",
@@ -58,28 +40,18 @@ export default {
   },
   components: {
     Currency,
+    CartDropdown,
   },
   computed: {
     cartTotal() {
       return this.cart.reduce((inc, item) => Number(item.price) + inc, 0);
     },
   },
+  methods: {
+    toggleCartMenu() {
+      this.displayCart = !this.displayCart;
+    },
+  },
   props: ["cart"],
 };
 </script>
-
-<style>
-.dropdown-clip {
-  overflow: hidden;
-}
-.dropdown-enter-actice,
-.dropdown-leave-active {
-  transition: all 0.5s ease-in-out;
-  transform: auto;
-}
-.dropdown-enter-from,
-.dropdown-enter-to {
-  opacity: 0;
-  transform: translateY(-300px);
-}
-</style>
