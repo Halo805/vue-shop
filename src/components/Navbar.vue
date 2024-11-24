@@ -2,7 +2,7 @@
   <nav class="navbar navbar-light sticky-top mr-3">
     <div
       v-if="cart.length"
-      class="w-100 navbar-text ml-auto d-flex justify-content-end position-relative"
+      class="w-100 navbar-text ml-auto d-flex justify-content-end position-relative cart-dropdown"
     >
       <div
         class="mr-auto d-flex align-items-end flex-column bd-highlight mb-3 position-absolute"
@@ -50,3 +50,9 @@ export default {
   props: ["cart", "cartTotal", "cartQty"],
 };
 </script>
+
+<style>
+.cart-dropdown {
+  margin-right: 20px;
+}
+</style>

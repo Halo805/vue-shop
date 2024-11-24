@@ -1,7 +1,17 @@
 <template>
-  <navbar :cart="cart" :cart-total="cartTotal" :cart-qty="cartQty" />
+  <navbar
+    :cart="cart"
+    :cart-total="cartTotal"
+    :cart-qty="cartQty"
+    @delete-item="deleteItem"
+  />
   <div class="contianer">
-    <router-view :products="products" :cart="cart" @addItem="addItem" />
+    <router-view
+      :products="products"
+      :cart="cart"
+      @addItem="addItem"
+      @delete-item="deleteItem"
+    />
   </div>
 </template>
 
@@ -24,7 +34,7 @@ export default {
       for (let i in this.cart) {
         sum += Number(this.cart[i].product.price) * this.cart[i].qty;
       }
-      console.log(sum);
+
       return sum;
     },
     cartQty: function () {
@@ -39,7 +49,7 @@ export default {
     addItem(product) {
       let productIX;
       let existingProduct;
-      debugger;
+
       existingProduct = this.cart.filter(function (item, ix) {
         if (item.product.id == Number(product.id)) {
           productIX = ix;
@@ -53,6 +63,13 @@ export default {
         this.cart[productIX].qty++;
       } else {
         this.cart.push({ product: product, qty: 1 });
+      }
+    },
+    deleteItem: function (ix) {
+      if (this.cart[ix].qty > 1) {
+        this.cart[ix].qty--;
+      } else {
+        this.cart.splice(ix, 1);
       }
     },
   },
