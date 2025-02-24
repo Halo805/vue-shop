@@ -9,6 +9,7 @@
     <router-view
       :products="products"
       :cart="cart"
+      :cart-total="cartTotal"
       @addItem="addItem"
       @delete-item="deleteItem"
     />

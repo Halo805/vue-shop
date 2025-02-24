@@ -26,6 +26,7 @@
         <router-link
           to="/checkout"
           class="btn btn-sm btn-success text-thite float-right mr-2 mt-2"
+          @click="handleViewCheckout"
         >
           View Checkout
         </router-link>
@@ -39,8 +40,13 @@ export default {
   components: {
     Currency,
   },
-  emits: ["deleteItem"],
+  emits: ["deleteItem", "toggleCartMenu"],
   props: ["cart", "displayCart"],
+  methods: {
+    handleViewCheckout() {
+      this.$emit("toggleCartMenu");
+    },
+  },
 };
 </script>
 
